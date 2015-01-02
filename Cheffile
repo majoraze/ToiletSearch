@@ -1,0 +1,10 @@
+site "https://supermarket.getchef.com/api/v1"
+
+cookbook 'apt'
+cookbook 'build-essential'
+cookbook 'mysql', '5.5.3'
+cookbook 'ruby_build'
+cookbook 'nodejs', git: 'https://github.com/mdxp/nodejs-cookbook'
+#cookbook 'rbenv', git: 'https://github.com/fnichol/chef-rbenv'
+cookbook 'rbenv', git: 'https://github.com/RayMangum/chef-rbenv'
+cookbook 'vim'

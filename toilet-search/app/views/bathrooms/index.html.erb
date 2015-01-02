@@ -1,0 +1,17 @@
+<table>
+  <tr>
+    <th>Endereço</th>
+    <th>Cidade</th>
+    <th>País</th>
+    <th>Situação</th>
+  </tr>
+
+  <% @bathrooms.each do |toilet| %>
+      <tr>
+        <td><%= toilet.address %></td>
+        <td><%= toilet.city %></td>
+        <td><%= toilet.country %></td>
+        <td><%= toilet.situation %></td>
+      </tr>
+  <% end %>
+</table>

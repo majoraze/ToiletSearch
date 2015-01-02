@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bathroom_id: 
+  client_id: 
+  review: MyText
+  condition: MyString
+  photo: MyString
+
+two:
+  bathroom_id: 
+  client_id: 
+  review: MyText
+  condition: MyString
+  photo: MyString
