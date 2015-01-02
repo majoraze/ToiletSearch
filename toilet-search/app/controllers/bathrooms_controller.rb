@@ -12,7 +12,7 @@ class BathroomsController < ApplicationController
   end
 
   def show
-
+    render "index"
   end
 
   def new

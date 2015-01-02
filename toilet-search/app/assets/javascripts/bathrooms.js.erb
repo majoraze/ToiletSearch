@@ -1,6 +1,6 @@
-var BATHROOMS = BATHROOMS || {};
+var MAIN = MAIN || {};
 
-BATHROOMS = function () {
+MAIN = function () {
 
     //GENERATED ON RAILS
     var jsonPath = "<%= Rails.application.routes.url_helpers.bathrooms_path %>.json";
@@ -15,7 +15,7 @@ BATHROOMS = function () {
     function loadMapsScript(){
         var script = document.createElement("script");
         script.type = "text/javascript";
-        script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyC2XrHYQapbz57MOozzRyYXavLHX80XE0k&sensor=true&callback=BATHROOMS.initializeMaps";
+        script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyC2XrHYQapbz57MOozzRyYXavLHX80XE0k&sensor=true&callback=MAIN.initializeMaps";
         document.body.appendChild(script);
     }
 
@@ -33,7 +33,7 @@ BATHROOMS = function () {
 
         var mrk = new google.maps.Marker({
             position: ltdLng,
-            map: BATHROOMS.MAP,
+            map: MAIN.MAP,
             title: node.free.toString(),
             teste: "passo qualquer coisa?"
         });
@@ -50,7 +50,7 @@ BATHROOMS = function () {
                 pixelOffset: new google.maps.Size(0,-25)
             });
 
-            infoWindow.open(BATHROOMS.MAP);
+            infoWindow.open(MAIN.MAP);
         });
     }
 
@@ -71,10 +71,11 @@ BATHROOMS = function () {
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
-            BATHROOMS.MAP = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            MAIN.MAP = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
             loadJSON();
         }
     };
 
 }();
+
