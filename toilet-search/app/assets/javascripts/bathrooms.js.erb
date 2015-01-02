@@ -1,0 +1,80 @@
+var BATHROOMS = BATHROOMS || {};
+
+BATHROOMS = function () {
+
+    //GENERATED ON RAILS
+    var jsonPath = "<%= Rails.application.routes.url_helpers.bathrooms_path %>.json";
+
+    //private vars
+    var infoWindow = null;
+    var jsonLoaded = {};
+
+
+
+    //PRIVATE
+    function loadMapsScript(){
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyC2XrHYQapbz57MOozzRyYXavLHX80XE0k&sensor=true&callback=BATHROOMS.initializeMaps";
+        document.body.appendChild(script);
+    }
+
+    function loadJSON() {
+        $.getJSON(jsonPath, function(data) {
+            jsonLoaded = data;
+            $.each(jsonLoaded, function (i, entry) {
+                setMarker(entry);
+            });
+        })
+    }
+
+    function setMarker(node) {
+        var ltdLng = new google.maps.LatLng(node.lat, node.lng);
+
+        var mrk = new google.maps.Marker({
+            position: ltdLng,
+            map: BATHROOMS.MAP,
+            title: node.free.toString(),
+            teste: "passo qualquer coisa?"
+        });
+
+        //adding click to marker (todo: make open new page with details of the bathroom, ajax perhaps?)
+        google.maps.event.addListener(mrk, 'click', function(e){
+            if (infoWindow) {
+                infoWindow.close();
+            }
+
+            infoWindow = new google.maps.InfoWindow({
+                content: mrk.teste,
+                position: ltdLng,
+                pixelOffset: new google.maps.Size(0,-25)
+            });
+
+            infoWindow.open(BATHROOMS.MAP);
+        });
+    }
+
+
+    //Initializing the maps
+    $(document).ready(loadMapsScript);
+
+
+
+
+    //PUBLIC
+    return {
+        MAP:{},
+        initializeMaps: function() {
+            var mapOptions = {
+                center: new google.maps.LatLng(-23.5537528, -46.6532704),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            BATHROOMS.MAP = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+            loadJSON();
+        }
+    };
+
+}();

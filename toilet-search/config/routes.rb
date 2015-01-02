@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   #   end
 
   root to: "bathrooms#index"
+  resources :bathrooms
 
 end
 

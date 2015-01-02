@@ -29,7 +29,7 @@ b2 = Bathroom.create!({lat:-23.4164669, lng:-46.3153547, address:"Rua Bela Vista
                        country:"Brasil", accessibility:false, free:true, situation:"Limpinho", poo:false,
                        free_condition:"Fazer carinho no cachorro"})
 
-b3 = Bathroom.create!({lat:-23.5537528, lng:-46.6532704, address:"Rua Frei Caneca, 617", city:"São Paulo",
+b3 = Bathroom.create!({lat:-23.419185, lng:-46.3141375, address:"Rua Primavera, 156", city:"Itaquaquecetuba",
                        country:"Brasil", accessibility:true, free:false, situation:"FEDENDO", poo:true,
                        free_condition:"Elogiar a dona bigoduda"})
 
