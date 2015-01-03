@@ -1,15 +1,16 @@
-<div id="map_canvas" style="width:800px; height: 500px;"></div>
+<section class="map">
+  <div id="map_canvas" style="width:700px; height: 500px;"></div>
 
+  <section class="filters">
 
+  </section>
+</section>
 
-
-<!--
 <table>
   <tr>
-    <th>Endereço</th>
-    <th>Cidade</th>
-    <th>País</th>
-    <th>Situação</th>
+    <td>Endereço</td>
+    <td>Cidade</td>
+    <td>País</td>
   </tr>
 
   <% @bathrooms.each do |toilet| %>
@@ -17,7 +18,6 @@
         <td><%= toilet.address %></td>
         <td><%= toilet.city %></td>
         <td><%= toilet.country %></td>
-        <td><%= toilet.situation %></td>
       </tr>
   <% end %>
-</table>-->
+</table>
