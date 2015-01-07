@@ -1,6 +1,6 @@
 var MAIN = MAIN || {};
 
-MAIN = function () {
+MAIN = (function () {
 
     //GENERATED ON RAILS
     var jsonPath = "<%= Rails.application.routes.url_helpers.bathrooms_path %>.json";
@@ -8,35 +8,46 @@ MAIN = function () {
     //private vars
     var infoWindow = null;
     var jsonLoaded = {};
+    var arrMarkers = [];
 
 
 
     //PRIVATE
-    function loadMapsScript(){
+    var loadMapsScript = function() {
         var script = document.createElement("script");
         script.type = "text/javascript";
         script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyC2XrHYQapbz57MOozzRyYXavLHX80XE0k&sensor=true&callback=MAIN.initializeMaps";
         document.body.appendChild(script);
     }
 
-    function loadJSON() {
+    var loadJSON =  function() {
         $.getJSON(jsonPath, function(data) {
             jsonLoaded = data;
+            //NAO FAZER O EACH DO JQUERY, FAZER NA UNHA
             $.each(jsonLoaded, function (i, entry) {
                 setMarker(entry);
             });
+
+            MAIN.CLUSTER.addMarkers(arrMarkers);
         })
     }
 
-    function setMarker(node) {
+    var initializeCluster = function () {
+        var mcOptions = {gridSize: 50, maxZoom: 15};
+        MAIN.CLUSTER = new MarkerClusterer(MAIN.MAP, [], mcOptions);
+    }
+
+    var setMarker = function (node) {
+        //CHECAR SE ESSE MARKER JÁ EXISTE (VIA ID) ANTES DE CRIAR UM NOVO, JÁ QUE VOU CARREGANDO VIA AJAX, ENTAO SO VAI ADICIONAR NAO EXISTENTES
         var ltdLng = new google.maps.LatLng(node.lat, node.lng);
 
         var mrk = new google.maps.Marker({
             position: ltdLng,
-            map: MAIN.MAP,
             title: node.name,
             teste: "passo qualquer coisa?"
         });
+
+        arrMarkers.push(mrk);
 
         //adding click to marker (todo: make open new page with details of the bathroom, ajax perhaps?)
         google.maps.event.addListener(mrk, 'click', function(e){
@@ -59,11 +70,10 @@ MAIN = function () {
     $(document).ready(loadMapsScript);
 
 
-
-
     //PUBLIC
     return {
         MAP:{},
+        CLUSTER:{},
         initializeMaps: function() {
             var mapOptions = {
                 center: new google.maps.LatLng(-23.5537528, -46.6532704),
@@ -73,9 +83,23 @@ MAIN = function () {
 
             MAIN.MAP = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
+            //ADICIONANDO EVENTO PARA VIEWPORT DO MAPS PARA REDUZIR PROCESSAMENTO
+            google.maps.event.addListener(MAIN.MAP, 'idle', function() {
+                bounds = MAIN.MAP.getBounds();
+                sw = bounds.getSouthWest();
+                ne = bounds.getNorthEast();
+                swLat = sw.lat();
+                swLng = sw.lng();
+                neLat = ne.lat();
+                neLng = ne.lng();
+
+                //FAZER TRATAMENTO PARA TIRAR A VISIBILIDADE DOS MARKERS QUE ESTÃO FORA DO VIEWPORT
+                //drawMap(swLat, swLng, neLat, neLng);
+            });
+
+            initializeCluster();
             loadJSON();
         }
     };
 
-}();
-
+})();

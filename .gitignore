@@ -10,4 +10,4 @@
 /tmp
 /cookbooks
 /Cheffile.lock
-/.DS_Store
+*.DS_Store
