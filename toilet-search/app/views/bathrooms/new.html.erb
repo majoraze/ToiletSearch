@@ -1,0 +1,86 @@
+<section class="map">
+  <div id="map_canvas" style="width:100%; height: 500px;"></div>
+
+  <section class="filters">
+  </section>
+</section>
+
+<section class="new_form">
+
+<%= form_for @bathroom do |f| %>
+  <p>
+    <%= f.label :name, "Nome do banheiro:" %><br>
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :country, "País:" %><br>
+    <%= f.text_field :country %>
+  </p>
+  <p>
+    <%= f.label :city, "Cidade:" %><br>
+    <%= f.text_field :city %>
+  </p>
+  <p>
+    <%= f.label :address, "Endereço:" %><br>
+    <%= f.text_field :address %>
+  </p>
+  <p>
+    <%= f.label :lat %><br>
+    <%= f.text_field :lat %>
+  </p>
+  <p>
+    <%= f.label :lng %><br>
+    <%= f.text_field :lng %>
+  </p>
+
+  <%= f.fields_for :feature do |l| %>
+      <p>Features:<br>
+        <%= l.check_box :vase %>
+        <%= l.label :vase, "Vaso sanitário" %><br>
+
+        <%= l.check_box :urinal%>
+        <%= l.label :urinal, "Urinol" %><br>
+
+        <%= l.check_box :accessibility %>
+        <%= l.label :accessibility, "Acessibilidade" %><br>
+
+        <%= l.check_box :free %>
+        <%= l.label :free, "Grátis" %><br>
+
+        <%= l.check_box :baby_change %>
+        <%= l.label :baby_change, "Espaço para troca de fralda" %><br>
+      </p>
+
+  <% end %>
+
+
+    <%= f.fields_for :reviews do |p| %>
+      <p>
+        <%= p.label :review, "Opinião:" %><br>
+        <%= p.text_area :review %>
+      </p>
+      <p>
+        <%= p.label :condition, "Condições do banheiro:" %><br>
+        <%= p.text_field :condition %>
+      </p>
+
+      <!-- POSTERIORMENTE VAI PEGAR O USUARIO LOGADO OU SALVAR COMO ANONIMO (CRIAR USER ANONIMO, OU DEIXAR NULL?) -->
+      <%= p.hidden_field :client_id, {value: Client.first.id} %>
+
+  <% end %>
+
+  <p>
+    <%= f.label :category_id, "Categoria:" %><br>
+    <%= f.collection_select :category_id, Category.all, :id, :name %>
+  </p>
+
+
+    <!-- Hiddens -->
+    <%= f.hidden_field :uses, {value: 1} %>
+
+  <%= f.submit 'Cadastrar' %>
+
+
+<% end %>
+
+</section>
